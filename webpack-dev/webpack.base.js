@@ -7,7 +7,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = {
-    mode: 'development', // 模式 默认两种 production development
+    // mode: 'development', // 模式 默认两种 production development
     entry: './src/index.js', // 入口
     output: {
         filename: 'bundle.js', // 打包后的文件名
