@@ -59,6 +59,10 @@ module.exports = {
         }),
         new webpack.ProvidePlugin({
             $: 'jquery'
+        }),
+        new webpack.DefinePlugin({ // 定义变量
+            DEV: JSON.stringify('development'),
+            FLAG: 'true'
         })
     ],
     module: { // 模块
@@ -148,15 +152,15 @@ module.exports = {
             // }
         ]
     },
-    resolve: { // 解析 第三方包 common
-        modules: [path.resolve('node_modules')],
-        extensions: ['.js', '.css', '.json'], // 扩展名  省略扩展名会自动寻找
-        mainFields: ['style', 'main'], // 设置主入口寻找顺序
-        mainFiles: [], // 入口文件的名字 默认index.js
-        alias: { // 别名
-            bootstrap: 'bootstrap/dist/css/bootstrap.css'
-        }
-    },
+    // resolve: { // 解析 第三方包 common
+    //     modules: [path.resolve('node_modules')],
+    //     extensions: ['.js', '.css', '.json'], // 扩展名  省略扩展名会自动寻找
+    //     mainFields: ['style', 'main'], // 设置主入口寻找顺序
+    //     mainFiles: [], // 入口文件的名字 默认index.js
+    //     alias: { // 别名
+    //         bootstrap: 'bootstrap/dist/css/bootstrap.css'
+    //     }
+    // },
     externals: { // 忽略 不打包
         jquery: '$'
     }
