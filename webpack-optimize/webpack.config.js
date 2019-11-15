@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
     mode: 'development',
@@ -13,6 +14,8 @@ module.exports = {
         rules: [
             {
                 test: /\.js$/,
+                exclude: /node_modules/,
+                include: path.resolve('src'),
                 use: {
                     loader: 'babel-loader',
                     options: {
@@ -28,6 +31,9 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             template: './public/index.html'
-        })
+        }),
+        new webpack.IgnorePlugin(
+            /\.\/local/, /moment/
+        )
     ]
 }
