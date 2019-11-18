@@ -1,10 +1,10 @@
-## webpack的相关优化项
-1. noParse
-2. exclude include
-3. webpack.IgnorePlugin  
+# webpack的相关优化项
+## noParse
+## exclude include
+## webpack.IgnorePlugin  
    可以忽略部分引入文件 减少打包大小  
    可以手动只引入需要的包
-4. webpack.DllPlugin 动态链接库  
+## webpack.DllPlugin 动态链接库  
    单独打包需要的包，然后引入到html模板中，这样就不用重新打包了
    1. 配置单独的webpack配置 用来打包需要采用dll模式引入的模块
       ``` js
@@ -40,3 +40,28 @@
       ``` html
       <script src="/_dll_react.js"></script>
       ```
+
+## 多线程打包 happypack
+使用happypack实现多线程打包 提高打包速度  
+### 使用方式
+1. loader中使用Happypack/loader?id=xx来替换原来的方式
+2. plugins
+   ```js
+   new Happypack({
+       id: 'js',
+       use: [{
+           loader: 'babel-loader',
+           options: {
+               presets: [
+                   '@babel/preset-env',
+                   '@babel/preset-react'
+               ]
+           }
+       }]
+   })
+   ```
+### 注意
+1. css也可以使用
+2. 当需要打包的文件比较小的时候，采用多线程可能更慢
+
+## webpack的自带优化
