@@ -5,6 +5,10 @@ const webpack = require('webpack');
 module.exports = {
     mode: 'development',
     entry: './src/index.js',
+    devServer: {
+        port: 3000,
+        open: true
+    },
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist')
@@ -29,6 +33,9 @@ module.exports = {
         ]
     },
     plugins: [
+        new webpack.DllReferencePlugin({
+            manifest: path.resolve(__dirname, 'dist', 'manifest.json') // 动态链接库的索引文件
+        }),
         new HtmlWebpackPlugin({
             template: './public/index.html'
         }),
