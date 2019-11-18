@@ -64,4 +64,22 @@
 1. css也可以使用
 2. 当需要打包的文件比较小的时候，采用多线程可能更慢
 
-## webpack的自带优化
+## webpack的`自带`优化
+### tree-shaking
+自动删除掉没用代码
+1. import 在生产环境下, 会自动去除掉未使用的代码
+2. require语法不支持tree-shaking
+
+### scope hosting 作用域提升
+webpack会自动省略可以简化的代码
+```js
+let a = 1;
+let b = 2;
+let c = 3;
+let d = 1 + 2 + 3;
+console.log(d)
+
+
+webpack下:
+console.log(6);
+```
