@@ -85,7 +85,7 @@ console.log(6);
 ```
 
 # 抽离公共代码
-当有一个文件被引用多次的时候，该文件会被多次打包。可以通过配置splitChunks来抽离公共代码
+多页面中, 当有一个文件被引用多次的时候，该文件会被多次打包。可以通过配置splitChunks来抽离公共代码
 ```js
 ....
 optimization: { // 原来的配置commonChunkPlugins
@@ -106,5 +106,25 @@ optimization: { // 原来的配置commonChunkPlugins
         }
     }
 },
-....
+...
+```
+
+# 懒加载
+通过import语法实现懒加载  
+```js
+// vue的路由懒加载 react的懒加载 都是通过这个实现的
+btn.onclick = function() {
+    // es6草案中的语法 jsonp实现动态加载文件
+    import('./source.js').then(data => {
+        console.log(data.default)
+    })
+}
+```
+## 配置
+草案语法暂时暂时不支持，需要使用@babel/plugin-syntax-dynamuc-import插件
+```js
+// 在babel-loader中使用
+plugins: [
+    '@babel/plugin-syntax-dynamuc-import'
+]
 ```
