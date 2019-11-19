@@ -11,27 +11,29 @@ module.exports = {
         path: path.resolve(__dirname, 'dist')
     },
     devServer: {
+        hot: true, // 热更新
         port: 3000,
-        open: true
+        open: true,
+        contentBase: './dist'
     },
-    optimization: { // 原来的配置commonChunkPlugins
-        splitChunks: { // 分割代码块
-            cacheGroup: { // 缓存组
-                common: { // 公共的模块
-                    chunks: 'initial',
-                    minSize: 0, // 超过多少开始抽离
-                    minChunks: 2, // 引用多少次开始抽离
-                },
-                vendor: { // 抽离第三方模块
-                    priority: 1, // 默认抽离是有先后顺序的 这里配置权重 决定先抽离谁
-                    test: /node_modules/, // 把你抽离出来
-                    chunks: 'initial',
-                    minSize: 0, // 超过多少开始抽离
-                    minChunks: 2, // 引用多少次开始抽离
-                }
-            }
-        }
-    },
+    // optimization: { // 原来的配置commonChunkPlugins
+    //     splitChunks: { // 分割代码块
+    //         cacheGroup: { // 缓存组
+    //             common: { // 公共的模块
+    //                 chunks: 'initial',
+    //                 minSize: 0, // 超过多少开始抽离
+    //                 minChunks: 2, // 引用多少次开始抽离
+    //             },
+    //             vendor: { // 抽离第三方模块
+    //                 priority: 1, // 默认抽离是有先后顺序的 这里配置权重 决定先抽离谁
+    //                 test: /node_modules/, // 把你抽离出来
+    //                 chunks: 'initial',
+    //                 minSize: 0, // 超过多少开始抽离
+    //                 minChunks: 2, // 引用多少次开始抽离
+    //             }
+    //         }
+    //     }
+    // },
     module: {
         noParse: /jquery/, // 不去解析jquery中的依赖库
         rules: [{
@@ -55,6 +57,8 @@ module.exports = {
         }]
     },
     plugins: [
+        new webpack.NamedModulesPlugin(), // 打印更新的模块路径
+        new webpack.HotModuleReplacementPlugin(), // 热更新插件
         new Happypack({
             id: 'js',
             use: [{
@@ -65,7 +69,7 @@ module.exports = {
                         '@babel/preset-react'
                     ],
                     plugins: [
-                        '@babel/plugin-syntax-dynamuc-import'
+                        '@babel/plugin-syntax-dynamic-import'
                     ]
                 }
             }]

@@ -128,3 +128,25 @@ plugins: [
     '@babel/plugin-syntax-dynamuc-import'
 ]
 ```
+# 热更新
+原来更改页面是会重新刷新页面，热更新可以只更新某一部分
+```js
+if (module.hot) {
+    // 模块更新后执行回调函数
+    module.hot.accept('./str.js', () => {
+        let jin = require('./str.js')
+        console.log(jin)
+    })
+}
+```
+
+## 配置
+```js
+devServe: {
+    hot: true
+},
+plugins: [
+    new webpack.NamedModulesPlugin(), // 打印更新的模块路径
+    new webpack.HotModuleReplacementPlugin() // 热更新插件
+]
+```
